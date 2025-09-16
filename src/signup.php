@@ -11,6 +11,27 @@
 
     $ec_pass = password_hash($p_wd, PASSWORD_BCRYPT);
 
+
+    $check_email:"
+    SELECT
+       u.email
+    FROM
+       users u
+    WHERE
+       email = '$e_mail' or ide_number =
+    LIMIT 1
+
+    
+    ";
+    
+    $res_check =pg_query($conn, $check_email);
+    if(pg_num_rows($res_check) >0){
+        echo "<script>alert('sucess !!! go to login')</script>";+
+        header('refresh:0;url=signup.html')
+    }else{
+
+    }
+
     //create query to insert into
     $query = "
     INSERT INTO users (
@@ -29,7 +50,9 @@
     $res = pg_query($conn, $query);
     //validate result
     if($res){
-        echo "Users has been created sucessfully!!!";
+        //echo "Users has been created sucessfully!!!";
+        echo "<script>alert('sucess !!! go to login')</script>";+
+        header('refresh:0;url=signin.html')
     } else {
         echo "Something wrong!";
     }
